@@ -12,6 +12,7 @@ const contactContent = "Scelerisque eleifend donec pretium vulputate sapien. Rho
 
 const app = express();
 
+
 app.set("view engine", "ejs");
 // app.set("views", path.join(__dirname, "views "));
 
@@ -22,8 +23,7 @@ const posts = [];
 
 
 app.get("/", (req, res) => {
-  res.render( "home", {startingContent: homeStartingContent});
-  console.log("reached");
+  res.render( "home", {startingContent: homeStartingContent, posts: posts});
 });
 
 app.get("/contact", (req, res) => {
@@ -32,6 +32,17 @@ app.get("/contact", (req, res) => {
 
 app.get("/about", (req, res) => {
   res.render("about", {aboutText: aboutContent});
+});
+
+let postNumber;
+
+app.get("/posts/:postName", (req, res) => {
+  const requestedPost = req.params.postName;
+
+  posts.forEach( post => {
+    const storedTitle = post.title;
+    storedTitle === requestedPost ? console.log("matched") : console.log("Not working");
+  });
 });
 
 app.get("/compose", (req, res) => {
@@ -44,9 +55,7 @@ app.post("/compose", (req, res) => {
     content: req.body.postBody,
   };
 
-
   posts.push(post);
-  console.log(posts);
   res.redirect("/");
 });
 
