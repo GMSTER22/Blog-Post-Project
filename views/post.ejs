@@ -1,7 +1,9 @@
 <%- include("partials/header") %>
 
-<h1> <%=postTitle %></h1>
+<h1 class="post__title"> <%=postTitle %></h1>
 
-<p><%= postContent%></p>
+<span class="post__author"> Published: <%= postDate.toLocaleDateString("en-EN", {weekday: "long", year:"numeric", month: "long", day: "numeric"}) %>  by <Strong> <%=postAuthor %> </Strong></span>
+
+<p class="post__content"><%= postContent%></p>
 
 <%- include("partials/footer") %>
